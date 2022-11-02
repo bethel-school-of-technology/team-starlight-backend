@@ -17,6 +17,7 @@
   },
   "homepage": "https://github.com/bethel-school-of-technology/team-starlight-backend#readme",
   "dependencies": {
-    "express": "^4.18.2"
+    "express": "^4.18.2",
+    "mongoose": "^6.7.0"
   }
 }
