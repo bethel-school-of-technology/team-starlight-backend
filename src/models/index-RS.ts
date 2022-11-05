@@ -1,4 +1,7 @@
 import { Sequelize } from "sequelize";
+import { randomSearchFactory } from "./randomSearch-RS";
+import { UserFactory } from "./User-RS";
+import { RecipeFactory } from "./userRecipes-RS";
 
 const dbName = "FoodGrubDb";
 const username = "root";
@@ -11,5 +14,9 @@ const sequelize = new Sequelize(dbName, username, password, {
 });
 
 //pages with (sequelize); at the end
+
+UserFactory(sequelize);
+RecipeFactory(sequelize);
+randomSearchFactory(sequelize);
 
 export const db = sequelize;
