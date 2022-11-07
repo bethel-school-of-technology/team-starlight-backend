@@ -14,9 +14,10 @@ app.use(express.json());
 app.use(express.urlencoded({ extended:true}));
 
 app.use("/main", );
-app.use("/recipes", );
-app.use("/myrecipes", );
-app.use("/aboutus", );
+app.use("/recipes" );
+app.use("User-RS", "/login");
+app.use("userRecipes","/myrecipes" );
+app.use("/aboutus" );
 
 
 app.use((req:Request, res: Response, next: NextFunction) => {

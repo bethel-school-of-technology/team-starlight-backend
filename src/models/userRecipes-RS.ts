@@ -12,7 +12,7 @@ export class userRecipe extends Model<InferAttributes<userRecipe>, InferCreation
     declare maxReadyTime: number
 }
 
-export function RecipeFactory (sequelize: Sequelize) {
+export function userRecipeFactory (sequelize: Sequelize) {
     userRecipe.init({
         query: {
             type: DataTypes.STRING,
