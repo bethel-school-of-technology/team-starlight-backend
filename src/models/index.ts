@@ -1,7 +1,7 @@
 import { Sequelize } from "sequelize";
-import { randomSearchFactory } from "./randomSearch-RS";
-import { UserFactory } from "./User-RS";
-import { userRecipeFactory } from "./userRecipes-RS";
+import { randomSearchFactory } from "./randomSearch";
+import { UserFactory } from "./User";
+import { userRecipeFactory } from "./userRecipes";
 
 const dbName = "FoodGrubDb";
 const username = "root";

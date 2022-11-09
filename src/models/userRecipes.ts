@@ -1,5 +1,5 @@
 import { DataTypes, InferAttributes, InferCreationAttributes, Model, Sequelize } from "sequelize/types";
-import { User } from "./User-RS";
+import { User } from "./User";
 
 export class userRecipe extends Model<InferAttributes<userRecipe>, InferCreationAttributes<userRecipe>>{
     declare query: string;
