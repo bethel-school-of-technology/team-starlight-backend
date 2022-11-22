@@ -4,7 +4,7 @@ import { User } from "./users";
 export class Message extends Model<InferAttributes<Message>, InferCreationAttributes<Message>>{
     declare messageId: number;
     declare message: string;
-    declare userId: string;
+    declare userId: number;
     declare createdAt?: Date;
     declare updatedAt?: Date;
 }
@@ -23,7 +23,7 @@ export function MessageFactory(sequelize: Sequelize) {
             unique: true
         },
         userId: {
-            type: DataTypes.STRING,
+            type: DataTypes.INTEGER,
             allowNull: false
         },
         createdAt: {
