@@ -1,5 +1,6 @@
 import { Request } from "express";
 import { User } from "../models/users";
+import jwt from "jsonwebtoken";
 
 const secret = "Our God Reigns";
 
