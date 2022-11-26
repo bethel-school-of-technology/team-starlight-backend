@@ -8,7 +8,7 @@ const username = 'root';
 const password = 'Password1!';
 
 const sequelize = new Sequelize(dbName, username, password, {
-    host: 'localhost',
+    host: '127.0.0.1', //change to local host on PC
     port: 3306,
     dialect: 'mysql'
 });
