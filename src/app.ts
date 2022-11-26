@@ -24,7 +24,11 @@ app.use((req: Request, res: Response, next: NextFunction) => {
 });
 
 // Syncing our database
+<<<<<<< Updated upstream
 db.sync().then(() => {
+=======
+db.sync({alter:false}).then(() => {
+>>>>>>> Stashed changes
     console.info("connected to the database!")
 });
 

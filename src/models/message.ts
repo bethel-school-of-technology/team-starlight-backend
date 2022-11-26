@@ -24,7 +24,11 @@ export function MessageFactory(sequelize: Sequelize) {
         },
         userId: {
             type: DataTypes.INTEGER,
+<<<<<<< Updated upstream
             allowNull: false
+=======
+            allowNull: true
+>>>>>>> Stashed changes
         },
         createdAt: {
             type: DataTypes.DATE,
