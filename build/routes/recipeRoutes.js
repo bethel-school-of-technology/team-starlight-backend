@@ -1,0 +1,11 @@
+"use strict";
+Object.defineProperty(exports, "__esModule", { value: true });
+const express_1 = require("express");
+const recipeController_1 = require("../controllers/recipeController");
+const router = (0, express_1.Router)();
+router.get('/', recipeController_1.getAllRecipes);
+router.get('/:recipeId', recipeController_1.getRecipe);
+router.put('/:recipeId', recipeController_1.updateRecipe);
+router.delete('/:recipeId', recipeController_1.deleteRecipe);
+router.post('/', recipeController_1.createRecipe);
+exports.default = router;
