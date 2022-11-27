@@ -1,3 +1,4 @@
+
 import express, { NextFunction, Request, Response } from 'express'
 import morgan from 'morgan';
 import { db } from './models';
