@@ -24,11 +24,7 @@ export function MessageFactory(sequelize: Sequelize) {
         },
         userId: {
             type: DataTypes.INTEGER,
-<<<<<<< Updated upstream
-            allowNull: false
-=======
             allowNull: true
->>>>>>> Stashed changes
         },
         createdAt: {
             type: DataTypes.DATE,
@@ -47,7 +43,3 @@ export function MessageFactory(sequelize: Sequelize) {
     });
 }
 
-export function AssociateUserMessage() {
-    User.hasMany(Message, { foreignKey: 'userId' });
-    Message.belongsTo(User, { foreignKey: 'userId' });
-}
