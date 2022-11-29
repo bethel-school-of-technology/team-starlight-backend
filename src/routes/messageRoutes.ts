@@ -7,9 +7,9 @@ router.get('/', getAllMessages);
 
 router.post('/', createMessage);
 
-router.get('/:messageId', getMessage);
+// router.get('/:messageId', getMessage);
 
-router.put('/:messageId', updateMessage);
+// router.put('/:messageId', updateMessage);
 
 router.delete('/:messageId', deleteMessage);
 
