@@ -2,9 +2,42 @@ import { Request } from "express";
 import { User } from "../models/users";
 import bcrypt from 'bcrypt';
 import jwt from "jsonwebtoken";
+import passport from "passport";
 
 
 const secret = "Our God Reigns";
+
+var LocalStrategy = require("passport-local");
+
+passport.use(new LocalStrategy(async (username: string, password: any, done: any) => {
+
+}));
+
+export default passport;
+
+passport.use(new LocalStrategy(async (username: string, password: any, done: any) => {
+    let currentUser = await User.findOne({ where: { username: username } });
+    
+    if (!currentUser) {
+        console.log("incorrect username");
+        return done(undefined, false, { message: 'Incorrect Username' });
+    }
+
+    if (currentUser.password !== password) {
+        console.log("incorrect password");
+        return done(undefined, false, { message: 'Incorrect password' });
+    }
+
+    return done(undefined, currentUser);
+}));
+
+passport.serializeUser<any, any>((user, done: any) => {
+    done(undefined, user);
+});
+
+passport.deserializeUser<any, any>((user, done) => {
+    done(undefined, user);
+});
 
 export const hashPassword = async (plainTextPassword: string) => {
     const saltRound = 12;

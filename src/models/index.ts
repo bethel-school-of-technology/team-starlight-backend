@@ -1,5 +1,4 @@
 import { Sequelize } from "sequelize";
-import { MessageFactory, AssociateUserMessage } from "./message";
 import { RecipeFactory } from "./recipe";
 import { UserFactory } from "./users";
 
@@ -15,7 +14,7 @@ const sequelize = new Sequelize(dbName, username, password, {
 
 RecipeFactory(sequelize);
 UserFactory(sequelize);
-MessageFactory(sequelize);
-AssociateUserMessage();
+
+
 
 export const db = sequelize;

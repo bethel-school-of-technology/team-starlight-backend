@@ -4,6 +4,8 @@ import morgan from 'morgan';
 import { db } from './models';
 import recipeRoutes from './routes/recipeRoutes';
 import userRoutes from './routes/userRoutes';
+import passport from 'passport';
+import session from 'express-session';
 
 const app = express();
 
@@ -18,6 +20,12 @@ const corsOptions = {
     optionSuccessStatus:200
 };
 app.use(cors(corsOptions));
+
+// Passport/Session middleware
+app.use(session({ secret: 'I am a child of God' }));
+app.use(passport.initialize());
+app.use(passport.session());
+
 //routes
 app.use('/api/users', userRoutes);
 app.use('/api/recipe', recipeRoutes);
