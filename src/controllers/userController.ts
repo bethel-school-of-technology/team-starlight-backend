@@ -51,14 +51,14 @@ export const getUser: RequestHandler = async (req, res, next) => {
             //...
             //}
     if (user) {
-        let { userId, username, password, firstName, lastName, email } = user;
+        let { userId, username, password, firstName, lastName,  } = user;
         res.status(200).json({
             userId,
             username,
             password,
             firstName,
-            lastName,
-            email
+            lastName
+            
         });
     }
     else {
