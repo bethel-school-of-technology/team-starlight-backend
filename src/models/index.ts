@@ -17,4 +17,5 @@ UserFactory(sequelize);
 
 
 
+
 export const db = sequelize;

@@ -1,16 +1,45 @@
 import { RequestHandler } from "express";
+import { allowedNodeEnvironmentFlags } from "process";
 import { Recipe } from "../models/recipe";
+import { User } from "../models/users";
+import { verifyUser } from "../services/auth";
+
 
 export const getAllRecipes: RequestHandler = async (req, res, next) => {
+    let user: User | null = await verifyUser(req);
+
+    if (!user) {
+        return res.status(403).send();
+        console.log("You must be logged in to use this function")
+    }
     let recipes = await Recipe.findAll();
     res.status(200).json(recipes);
 }
 
 export const createRecipe: RequestHandler = async (req, res, next) => {
+    let user: User | null = await verifyUser(req);
+
+    if (!user) {
+        return res.status(403).send();
+
+    }
+
+    console.log(user);
+
     let newRecipe: Recipe = req.body;
     if (newRecipe.title) {
-        let created = await Recipe.create(newRecipe);
-        res.status(201).json(created);
+        let recipe = await Recipe.findOrCreate({
+            where: { id: newRecipe.id },
+            
+            defaults: newRecipe
+        });
+        
+        
+
+        // TODO connect user to recipe
+
+
+        res.status(201).json(recipe);
     }
     else {
         res.status(400).send();
@@ -18,6 +47,11 @@ export const createRecipe: RequestHandler = async (req, res, next) => {
 }
 
 export const getRecipe: RequestHandler = async (req, res, next) => {
+    let user: User | null = await verifyUser(req);
+
+    if (!user) {
+        return res.status(403).send();
+    }
     let recipeId = req.params.id;
     let recipeFound = await Recipe.findByPk(recipeId);
     if (recipeFound) {
@@ -29,6 +63,13 @@ export const getRecipe: RequestHandler = async (req, res, next) => {
 }
 
 export const updateRecipe: RequestHandler = async (req, res, next) => {
+    let user: User | null = await verifyUser(req);
+
+    if (!user) {
+        return res.status(403).send();
+    }
+
+
     let recipeId = req.params.id;
     let newRecipe: Recipe = req.body;
     
