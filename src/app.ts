@@ -4,6 +4,8 @@ import morgan from 'morgan';
 import { db } from './models';
 import recipeRoutes from './routes/recipeRoutes';
 import userRoutes from './routes/userRoutes';
+import passport from 'passport';
+import session from 'express-session';
 
 const app = express();
 
@@ -13,10 +15,18 @@ app.use(express.json());
 app.use(express.urlencoded({extended: true}));
 const cors = require('cors');
 const corsOptions = {
-    origin: [ 'http://localhost:3000 ']
+    origin:'http://localhost:3000', 
+    credentials:true,            //access-control-allow-credentials:true
+    optionSuccessStatus:200
 };
 app.use(cors(corsOptions));
-// routes
+
+// Passport/Session middleware
+app.use(session({ secret: 'I am a child of God' }));
+app.use(passport.initialize());
+app.use(passport.session());
+
+//routes
 app.use('/api/users', userRoutes);
 app.use('/api/recipe', recipeRoutes);
 
@@ -25,8 +35,7 @@ app.use((req: Request, res: Response, next: NextFunction) => {
 });
 
 // Syncing our database
-// db.sync().then(() => {
-db.sync({alter:false}).then(() => {
+db.sync().then(() => {
     console.info("connected to the database!")
 });
 
