@@ -1,6 +1,7 @@
 import { Sequelize } from "sequelize";
-import { RecipeFactory } from "./recipe";
+import { AssociateUserRecipe, RecipeFactory } from "./recipe";
 import { UserFactory } from "./users";
+
 
 const dbName = 'FoodGrubDb';
 const username = 'root';
@@ -12,8 +13,9 @@ const sequelize = new Sequelize(dbName, username, password, {
     dialect: 'mysql'
 });
 
-RecipeFactory(sequelize);
 UserFactory(sequelize);
+RecipeFactory(sequelize);
+AssociateUserRecipe();
 
 
 

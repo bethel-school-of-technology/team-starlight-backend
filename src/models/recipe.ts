@@ -14,6 +14,7 @@ export class Recipe extends Model<
   declare id: number;
   declare title: string;
   declare image: string;
+  declare userId: number;
   declare servings: string;
   declare readyInMinutes: string;
 }
@@ -25,7 +26,7 @@ export function RecipeFactory(sequelize: Sequelize) {
         type: DataTypes.INTEGER,
         primaryKey: true,
         allowNull: false,
-        unique: true,
+        unique: false,
       },
         title: {
         type: DataTypes.STRING,
@@ -35,6 +36,10 @@ export function RecipeFactory(sequelize: Sequelize) {
         type: DataTypes.STRING,
         allowNull: false,
       },
+      userId: {
+        type: DataTypes.INTEGER,
+        allowNull: false,
+    },
       servings: {
         type: DataTypes.INTEGER,
         allowNull: false,
@@ -46,15 +51,13 @@ export function RecipeFactory(sequelize: Sequelize) {
     },
     {
       freezeTableName: true,
-      tableName: "items",
+      tableName: 'Recipes',
       sequelize,
     }
   );
 
-//   User.belongsToMany(Recipe, {
-//     through: Recipe,
-//   });
-//   Recipe.belongsToMany(User, {
-//     through: Recipe,
-//   });
+}
+export function AssociateUserRecipe() {
+  User.belongsToMany(Recipe, { through: 'userId' });
+  Recipe.belongsToMany(User, { through: 'userId' });
 }
