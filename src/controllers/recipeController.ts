@@ -9,7 +9,7 @@ export const getAllRecipes: RequestHandler = async (req, res, next) => {
 
   if (!user) {
     return res.status(403).send();
-    console.log("You must be logged in to use this function");
+ 
   }
   let refcipeUserId=user.userId
   console.log(refcipeUserId)
@@ -35,7 +35,7 @@ export const createRecipe: RequestHandler = async (req, res, next) => {
       defaults: newRecipe,
     });
 
-    // TODO connect user to recipe
+    
 
     res.status(201).json(recipe);
   } else {
@@ -44,40 +44,44 @@ export const createRecipe: RequestHandler = async (req, res, next) => {
 };
 
 export const getRecipe: RequestHandler = async (req, res, next) => {
+  //Authenticate user
   let user: User | null = await verifyUser(req);
-
   if (!user) {
     return res.status(403).send();
   }
-  let recipeId = req.params.id;
+
+  //getRecipe
+  let recipeId = req.params.savedRecipeId;
   let recipeFound = await Recipe.findByPk(recipeId);
   if (recipeFound) {
     res.status(200).json(recipeFound);
+    console.log(recipeFound)
   } else {
     res.status(404).json();
   }
 };
 
 export const updateRecipe: RequestHandler = async (req, res, next) => {
+  //Authenticate user
   let user: User | null = await verifyUser(req);
-
   if (!user) {
     return res.status(403).send();
   }
 
-  let recipeId = req.params.id;
+  //updateRecipe
+  let recipeId = req.params.savedRecipeId;
   let newRecipe: Recipe = req.body;
 
   let recipeFound = await Recipe.findByPk(recipeId);
 
   if (
     recipeFound &&
-    recipeFound.id == newRecipe.id &&
+    recipeFound.savedRecipeId == newRecipe.savedRecipeId &&
     newRecipe.title &&
     newRecipe
   ) {
     await Recipe.update(newRecipe, {
-      where: { id: recipeId },
+      where: { savedRecipeId: recipeId },
     });
     res.status(200).json();
   } else {
@@ -86,12 +90,12 @@ export const updateRecipe: RequestHandler = async (req, res, next) => {
 };
 
 export const deleteRecipe: RequestHandler = async (req, res, next) => {
-  let recipeId = req.params.id;
+  let recipeId = req.params.savedRecipeId;
   let recipeFound = await Recipe.findByPk(recipeId);
 
   if (recipeFound) {
     await Recipe.destroy({
-      where: { id: recipeId },
+      where: { savedRecipeId: recipeId },
     });
     res.status(200).json();
   } else {

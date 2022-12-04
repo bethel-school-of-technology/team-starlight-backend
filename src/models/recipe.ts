@@ -3,14 +3,16 @@ import {
   InferAttributes,
   InferCreationAttributes,
   Model,
-  Sequelize,
+  Sequelize, 
 } from "sequelize";
+import sequelize from "sequelize/types/sequelize";
 import { User } from "./users";
 
 export class Recipe extends Model<
   InferAttributes<Recipe>,
   InferCreationAttributes<Recipe>
 > {
+  declare savedRecipeId: number
   declare id: number;
   declare title: string;
   declare image: string;
@@ -22,9 +24,15 @@ export class Recipe extends Model<
 export function RecipeFactory(sequelize: Sequelize) {
   Recipe.init(
     {
+      savedRecipeId: {
+        type: DataTypes.INTEGER,
+        autoIncrement: true,
+        primaryKey: true,
+        allowNull: false,
+        unique: true
+    },
       id: {
         type: DataTypes.INTEGER,
-        primaryKey: true,
         allowNull: false,
         unique: false,
       },
@@ -56,8 +64,4 @@ export function RecipeFactory(sequelize: Sequelize) {
     }
   );
 
-}
-export function AssociateUserRecipe() {
-  User.belongsToMany(Recipe, { through: 'userId' });
-  Recipe.belongsToMany(User, { through: 'userId' });
 }
