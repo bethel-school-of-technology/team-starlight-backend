@@ -1,6 +1,5 @@
 import { Sequelize } from "sequelize";
 import { RecipeFactory } from "./recipe";
-import { UserRecipeFactory } from "./UserRecipe";
 import { UserFactory } from "./users";
 
 
@@ -16,7 +15,7 @@ const sequelize = new Sequelize(dbName, username, password, {
 
 UserFactory(sequelize);
 RecipeFactory(sequelize);
-UserRecipeFactory(sequelize);
+
 
 
 
