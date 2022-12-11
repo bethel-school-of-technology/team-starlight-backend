@@ -14,10 +14,5 @@ const sequelize = new Sequelize(dbName, username, password, {
 });
 
 UserFactory(sequelize);
-RecipeFactory(sequelize);
-
-
-
-
 
 export const db = sequelize;

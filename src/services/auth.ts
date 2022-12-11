@@ -4,6 +4,17 @@ import jwt from 'jsonwebtoken';
 import { User } from '../models/users';
 
 
+const secret = "Our God Reigns";
+
+export const signUserToken = async (user: User) => {
+    let token = jwt.sign(
+        { userId: user.userId }, 
+        secret, { expiresIn: "1hr" },
+    );
+
+    return token;
+};
+
 export const hashPassword = async (plainTextPassword: string) => {
     const saltRound = 12;
     const hash = await bcrypt.hash(plainTextPassword, saltRound);
@@ -16,23 +27,11 @@ export const comparePasswords = async (plainTextPassword: string, hashPassword: 
 
 const secret = 'Tea, Earl Grey, Hot';
 
-export const signUserToken = async (user: User) => {
-    let token = jwt.sign(
-        { userId: user.userId },
-        secret,
-        { expiresIn: '1hr' }
-    );
-    
-    return token;
-
-    
-}
-
 export const verifyUser = async (req: Request) => {
     // Get the Authorization header from the request
     const authHeader = req.headers.authorization;
 
-    // If header exists, parse token from `Bearer <token>`
+    //If header exists, parse token from `Bearer <token>`
     if (authHeader) {
         const token = authHeader.split(' ')[1];
 

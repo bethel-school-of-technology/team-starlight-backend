@@ -1,6 +1,7 @@
 import { RequestHandler } from "express";
 import { User } from "../models/users";
-import { comparePasswords, hashPassword, signUserToken, verifyUser } from "../services/auth";
+import { comparePasswords, hashPassword, signUserToken, verifyUser } 
+    from "../services/auth";
 
 export const createUser: RequestHandler = async (req, res, next) => {
     let newUser: User = req.body;
@@ -9,8 +10,12 @@ export const createUser: RequestHandler = async (req, res, next) => {
         newUser.password = hashedPassword;
         let created = await User.create(newUser);
         res.status(201).json({
-            username:created.username,
-            userId: created.userId
+            userId: created.userId,
+            username: created.username,
+            password: created.password,
+            firstName: created.firstName,
+            lastName: created.lastName,
+            
         });
     }
     else {
@@ -46,24 +51,6 @@ export const loginUser: RequestHandler = async (req, res, next) => {
 
 
 export const getUser: RequestHandler = async (req, res, next) => {
-    let user: User | null = await verifyUser(req);
-    //to make more secure
-        //let reqId = parseInt(req.params.id);
-        //if(user && user.userId == reqId) {
-            //...
-            //}
-    if (user) {
-        let { userId, username, password, firstName, lastName,  } = user;
-        res.status(200).json({
-            userId,
-            username,
-            password,
-            firstName,
-            lastName
-            
-        });
-    }
-    else {
-        res.status(401).send();
-    }
+    let allUsers: User [] = await User.findAll()
+    res.status(200).json(allUsers)
 }
