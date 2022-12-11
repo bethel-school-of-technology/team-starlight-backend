@@ -1,4 +1,3 @@
-
 import express, { NextFunction, Request, Response } from 'express'
 import morgan from 'morgan';
 import { db } from './models';
@@ -35,7 +34,7 @@ app.use((req: Request, res: Response, next: NextFunction) => {
 });
 
 // Syncing our database
-db.sync().then(() => {
+db.sync({ }).then(() => {
     console.info("connected to the database!")
 });
 

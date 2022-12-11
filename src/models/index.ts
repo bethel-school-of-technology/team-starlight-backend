@@ -2,6 +2,7 @@ import { Sequelize } from "sequelize";
 import { RecipeFactory } from "./recipe";
 import { UserFactory } from "./users";
 
+
 const dbName = 'FoodGrubDb';
 const username = 'root';
 const password = 'Password1!';
@@ -12,7 +13,6 @@ const sequelize = new Sequelize(dbName, username, password, {
     dialect: 'mysql'
 });
 
-RecipeFactory(sequelize);
 UserFactory(sequelize);
 
 export const db = sequelize;
